@@ -45,6 +45,9 @@ public class Reshma {
 	@Column(name = "app_type")
 	private String appType;
 	
+	@Column(name = "tier")
+	private String tier;
+	
 	@Column(name = "app_environment")
 	private String appEnvironment;
 
@@ -118,6 +121,30 @@ public class Reshma {
 
 	public void setAppEnvironment(String appEnvironment) {
 		this.appEnvironment = appEnvironment;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getTier() {
+		return tier;
+	}
+
+	public void setTier(String tier) {
+		this.tier = tier;
 	}
 
 	

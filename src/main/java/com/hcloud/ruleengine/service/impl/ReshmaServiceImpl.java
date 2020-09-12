@@ -20,4 +20,11 @@ public class ReshmaServiceImpl implements ReshmaService{
 	public List<Reshma> getReshmaIPs(String ipAddress) {
 		return reshmaRepository.getReshma(ipAddress);
 	}
+
+
+	@Override
+	public List<Reshma> getAllReshma() {
+		
+		return reshmaRepository.findAll();
+	}
 }
