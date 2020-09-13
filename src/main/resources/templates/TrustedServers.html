@@ -74,7 +74,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<form class='card p-3 bg-light' action="/addFirewallRule"
+					<form class='card p-3 bg-light' action="/saveTrustedServers"
 						method="POST">
 						<div class="form-group">
 
@@ -137,14 +137,14 @@
 								<td th:text="${fr.remark}"></td>
 								<td>
                                          <li class="list-inline-item">
-                                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-placement="top" title="Edit" data-target="#updateTSZ" th:data-whatever1="${fr.id}" th:data-whatever2="${fr.source}" th:data-whatever3="${fr.destination}" th:data-whatever4="${fr.remark}">
 <img alt=""
 			src="/img/favicons/edit-property-16.png"
 			style="height: 15px; width: 13px;">
 </button>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><img alt=""
+                                                    <button class="btn btn-danger btn-sm rounded-0" type="button"  data-placement="top" title="Delete" data-toggle="modal" data-target="#deleteTSZ" th:data-whatever="${fr.id}"><img alt=""
 			src="/img/favicons/delete-16.png"
 			style="height: 15px; width: 13px;"></button>
                                                 </td>
@@ -160,6 +160,90 @@
 			</div>
 		</div>
 		<!-- /container-fluid -->
+		
+		
+		<!-- Update Modal -->
+<div class="modal fade" id="updateTSZ" tabindex="-1" role="dialog" aria-labelledby="deleteTSZ" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="/updateTrustedServers" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Source
+										</label> <small id="SourceOptionalInline" class="text-muted">*</small>
+									<input type="text" class="form-control form-control-sm"
+										 id="updatesource"
+										name="updatesource" placeholder="Source">
+								</div>
+								</div>
+								<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Destination
+										</label> <small id="SourceOptionalInline" class="text-muted">*</small>
+									<input type="text" class="form-control form-control-sm"
+										 id="updatedestination"
+										name="updatedestination" placeholder="Destination">
+								</div>
+								</div>
+								<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Remark
+										</label> <small id="SourceOptionalInline" class="text-muted">*</small>
+									<input type="text" class="form-control form-control-sm"
+										 id="updateremark"
+										name="updateremark" placeholder="Remark">
+								</div>
+							</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+        <input type="hidden"  id="updateid" name="updateid" />
+        <button type="submit" class="btn btn-danger">Update</button>
+        
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+		
+		
+		
+		<!-- Delete Modal -->
+<div class="modal fade" id="deleteTSZ" tabindex="-1" role="dialog" aria-labelledby="deleteTSZ" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you really want to delete this record ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="/deleteTrustedServers" method="POST">
+        <input type="hidden"  id="deleteId" name="deleteId"/>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 	</main>
 
@@ -180,31 +264,42 @@
 
 	<!-- script for disable paste dates for till date -->
 	<script type="text/javascript">
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1; //January is 0!
-		var yyyy = today.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd
+		
+		
+		function update(id){
+			
+			alert("Updating"+id);
+			
+			
+			
+			
+			document.body.scrollTop = 0; // For Safari
+			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
+		
+		
+		$('#deleteTSZ').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget); // Button that triggered the modal
+			  var deleteId = button.data('whatever'); // Extract info from data-* attributes
+			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			  var modal = $(this);
+			  modal.find('.modal-footer input').val(deleteId);
+			})
+		
+		$('#updateTSZ').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget); // Button that triggered the modal
+			var id = button.data('whatever1');  
+			var source = button.data('whatever2');
+			var destination = button.data('whatever3');
+			var remark = button.data('whatever4');// Extract info from data-* attributes
+			
+			$('#updateid').val(id);
+			 $('#updatesource').val(source);
+			 $('#updatedestination').val(destination);
+			 $('#updateremark').val(remark);
 
-		today = yyyy + '-' + mm + '-' + dd;
-		document.getElementById("tillDate").setAttribute("min", today);
-		
-		
-		function onChangeValidity(){
-			
-			var validity=document.getElementById("validity").value;
-			
-			if(validity=='Permanent'){
-				document.getElementById("tillDate").disabled = true;
-			}else{			
-				document.getElementById("tillDate").disabled = false;
-			}
-		}
+			})
 	</script>
 
 </body>
