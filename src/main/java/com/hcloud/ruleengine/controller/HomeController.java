@@ -52,9 +52,18 @@ public class HomeController {
 	}
 	
 	@PostMapping(value = "/updateReshma")
-	public String updateReshma(@RequestParam("updateid") long id,@RequestParam("updatesource") String source,@RequestParam("updatedestination") String destination,@RequestParam("updateremark") String remark) throws ParseException {
+	public String updateReshma(@RequestParam("updateid") long id,@RequestParam("updateIpRange") String updateIpRange,@RequestParam("updateZoneName") String updateZoneName,@RequestParam("updateAppType") String updateAppType,@RequestParam("updateDCLocation") String updateDCLocation,@RequestParam("updateClusterName") String updateClusterName,@RequestParam("updateAppEnvironment") String updateAppEnvironment,@RequestParam("updateTier") String updateTier,@RequestParam("updateName") String updateName) throws ParseException {
 		 
 		Reshma reshma = new Reshma();
+		reshma.setId(id);
+		reshma.setIpRange(updateIpRange);
+		reshma.setZoneName(updateZoneName);
+		reshma.setAppType(updateAppType);
+		reshma.setDcLocation(updateDCLocation);
+		reshma.setClusterName(updateClusterName);
+		reshma.setAppEnvironment(updateAppEnvironment);
+		reshma.setTier(updateTier);
+		reshma.setName(updateName);
 		
 		reshmaService.update(reshma);
 			

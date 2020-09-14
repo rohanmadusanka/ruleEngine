@@ -122,7 +122,7 @@
 										class="col-form-label col-form-label-sm">App Environment</label>
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.appEnvironment}" id="appEnvironment"
-										name="appEnvironment" placeholder="App Environment" onchange="getServerName()">
+										name="appEnvironment" placeholder="App Environment" onkeyup="getServerName()">
 								</div>
 								
 							</div>
@@ -132,14 +132,14 @@
 										class="col-form-label col-form-label-sm">Tier</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.tier}" id="tier"
-										name="tier" placeholder="Source Hostname" onchange="getServerName()">
+										name="tier" placeholder="Tier" onkeyup="getServerName()">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
 										class="col-form-label col-form-label-sm">Server Name</label>
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.name}" id="name"
-										name="name" placeholder="Source Hostname">
+										name="name" placeholder="Server Name">
 								</div>
 							</div>
 							<button type="submit" class="btn btn-primary"
@@ -192,7 +192,7 @@
 								<td th:text="${reshma.lastModifiedDate}"></td>
 								<td>
                                          <li class="list-inline-item">
-                                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#updateReshma" data-placement="top" title="Edit" th:data-whatever1="${reshma.id}" th:data-whatever2="${reshma.Name}" th:data-whatever3="${reshma.ipRange}" th:data-whatever4="${reshma.zoneName}" th:data-whatever5="${reshma.dcLocation}" th:data-whatever6="${reshma.clusterName}" th:data-whatever7="${reshma.appType}" th:data-whatever8="${reshma.tier}" th:data-whatever9="${reshma.appEnvironment}">
 <img alt=""
 			src="/img/favicons/edit-property-16.png"
 			style="height: 15px; width: 13px;">
@@ -219,7 +219,101 @@
 
 
 
-
+<!-- Update Modal -->
+<div class="modal fade" id="updateReshma" tabindex="-1" role="dialog" aria-labelledby="updateReshma" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="/updateReshma" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      
+      
+      <div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">IP Range</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.ipRange}" id="updateIpRange"
+										name="updateIpRange" placeholder="IP Range">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Zone Name</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.zoneName}" id="updateZoneName"
+										name="updateZoneName" placeholder="Zone Name">
+								</div>
+								</div>
+								<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">App Type</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.appType}" id="updateAppType"
+										name="updateAppType" placeholder="App Type" onchange="getServerName()">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">DC Location</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.dcLocation}" id="updateDCLocation"
+										name="updateDCLocation" placeholder="DC Location">
+								</div>
+								</div>
+								
+								<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Cluster Name</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.clusterName}" id="updateClusterName"
+										name="updateClusterName" placeholder="Cluster Name">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">App Environment</label>
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.appEnvironment}" id="updateAppEnvironment"
+										name="updateAppEnvironment" placeholder="App Environment" onkeyup="getServerName2()">
+								</div>
+								</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Tier</label> 
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.tier}" id="updateTier"
+										name="updateTier" placeholder="Tier" onkeyup="getServerName2()">
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="sourceHostname"
+										class="col-form-label col-form-label-sm">Server Name</label>
+									<input type="text" class="form-control form-control-sm"
+										th:value="${reshma.name}" id="updateName"
+										name="updateName" placeholder="Server Name">
+								</div>
+							</div>
+      			
+								
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+        <input type="hidden"  id="updateid" name="updateid" />
+        <button type="submit" class="btn btn-danger">Update</button>
+        
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
 
 
 
@@ -277,7 +371,28 @@
 		  modal.find('.modal-footer input').val(deleteId);
 		});
 		
+	$('#updateReshma').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget); // Button that triggered the modal
+		var updateId = button.data('whatever1');
+		var updateName = button.data('whatever2');  
+		var updateIpRange = button.data('whatever3');
+		var updateZoneName = button.data('whatever4');
+		var updateDCLocation = button.data('whatever5');// Extract info from data-* attributes
+		var updateClusterName = button.data('whatever6');
+		var updateAppType = button.data('whatever7');
+		var updateTier = button.data('whatever8');
+		var updateAppEnvironment = button.data('whatever9');
 		
+		$('#updateid').val(updateId);
+		$('#updateIpRange').val(updateIpRange);
+		 $('#updateZoneName').val(updateZoneName);
+		 $('#updateAppType').val(updateAppType);
+		 $('#updateDCLocation').val(updateDCLocation);
+		 $('#updateClusterName').val(updateClusterName);
+		 $('#updateAppEnvironment').val(updateAppEnvironment);
+		 $('#updateTier').val(updateTier);
+		 $('#updateName').val(updateName);
+		});
 		
 		
 		
@@ -286,6 +401,13 @@
 		document.getElementById("name").value="HDC ("+document.getElementById("appEnvironment").value+") "+document.getElementById("tier").value
 		
 	}
+		
+		
+		function getServerName2(){
+			
+			document.getElementById("updateName").value="HDC ("+document.getElementById("updateAppEnvironment").value+") "+document.getElementById("updateTier").value
+			
+		}
 	</script>
 
 </body>
