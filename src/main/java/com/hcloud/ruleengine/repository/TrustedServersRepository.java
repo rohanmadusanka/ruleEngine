@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.hcloud.ruleengine.model.Reshma;
 import com.hcloud.ruleengine.model.TrustedServerZone;
 
 public interface TrustedServersRepository extends JpaRepository<TrustedServerZone, Long>{
@@ -32,4 +33,14 @@ public interface TrustedServersRepository extends JpaRepository<TrustedServerZon
 //	@Query("select c from trustedservers c where c.movie = :movie")
 //	List<TrustedServerZone> findByMovieSorted(
 //			@Param("movie") String movieName, Sort sort);
+	
+	
+	
+	
+	
+
+	
+	@Query(value = "select * from trustedservers where source= :sourceServer and destination= :destinationServer  ;",
+            nativeQuery = true)
+	List<TrustedServerZone> getRemarkValues(@Param("sourceServer") String sourceServer,@Param("destinationServer") String destinationServer);
 }

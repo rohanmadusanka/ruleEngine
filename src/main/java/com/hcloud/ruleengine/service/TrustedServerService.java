@@ -14,4 +14,6 @@ public interface TrustedServerService {
 	void delete(long id);
 
 	TrustedServerZone update(TrustedServerZone trustedServerZone);
+
+	List<TrustedServerZone> getRemarkValues(String sourceServer, String destinationServer);
 }

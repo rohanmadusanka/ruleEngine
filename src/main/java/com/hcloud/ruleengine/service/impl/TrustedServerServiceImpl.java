@@ -45,5 +45,9 @@ public class TrustedServerServiceImpl implements TrustedServerService{
 		return trustedServersRepository.save(trustedServerZone);
 	}
 
-	
+	@Override
+	public List<TrustedServerZone> getRemarkValues(String sourceServer,String destinationServer) {
+		return trustedServersRepository.getRemarkValues(sourceServer, destinationServer);
+		
+	}
 }
