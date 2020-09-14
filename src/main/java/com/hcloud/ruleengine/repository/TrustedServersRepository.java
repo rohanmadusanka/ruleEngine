@@ -14,14 +14,14 @@ import com.hcloud.ruleengine.model.TrustedServerZone;
 
 public interface TrustedServersRepository extends JpaRepository<TrustedServerZone, Long>{
 
-	@Query("select c from trustedservers c")
-	Page<TrustedServerZone> findAllPage(Pageable pageable);
-
-	@Query("select c from trustedservers c")
-	Slice<TrustedServerZone> findAllSlice(Pageable pageable);
-
-	@Query("select c from trustedservers c")
-	List<TrustedServerZone> findAllSorted(Sort sort);
+//	@Query("select c from trustedservers c")
+//	Page<TrustedServerZone> findAllPage(Pageable pageable);
+//
+//	@Query("select c from trustedservers c")
+//	Slice<TrustedServerZone> findAllSlice(Pageable pageable);
+//
+//	@Query("select c from trustedservers c")
+//	List<TrustedServerZone> findAllSorted(Sort sort);
 
 //	Page<TrustedServerZone> findByMovie(String movieName, Pageable pageable);
 //

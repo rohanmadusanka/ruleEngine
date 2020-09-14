@@ -76,7 +76,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<form class='card p-3 bg-light' action="/addFirewallRule"
+					<form class='card p-3 bg-light' action="/saveReshma"
 						method="POST">
 						<div class="form-group">
 							<div class="form-row">
@@ -85,21 +85,21 @@
 										class="col-form-label col-form-label-sm">IP Range</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.ipRange}" id="ipRange"
-										name="ipRange" placeholder="Source Hostname">
+										name="ipRange" placeholder="IP Range">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
 										class="col-form-label col-form-label-sm">Zone Name</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.zoneName}" id="zoneName"
-										name="zoneName" placeholder="Source Hostname">
+										name="zoneName" placeholder="Zone Name">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
 										class="col-form-label col-form-label-sm">App Type</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.appType}" id="appType"
-										name="appType" placeholder="Source Hostname">
+										name="appType" placeholder="App Type" onchange="getServerName()">
 								</div>
 							</div>
 							<div class="form-row">
@@ -108,21 +108,21 @@
 										class="col-form-label col-form-label-sm">DC Location</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.dcLocation}" id="dcLocation"
-										name="dcLocation" placeholder="Source Hostname">
+										name="dcLocation" placeholder="DC Location">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
 										class="col-form-label col-form-label-sm">Cluster Name</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.clusterName}" id="clusterName"
-										name="clusterName" placeholder="Source Hostname">
+										name="clusterName" placeholder="Cluster Name">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
-										class="col-form-label col-form-label-sm">App Type</label>
+										class="col-form-label col-form-label-sm">App Environment</label>
 									<input type="text" class="form-control form-control-sm"
-										th:value="${reshma.appType}" id="appType"
-										name="appType" placeholder="Source Hostname">
+										th:value="${reshma.appEnvironment}" id="appEnvironment"
+										name="appEnvironment" placeholder="App Environment" onchange="getServerName()">
 								</div>
 								
 							</div>
@@ -132,7 +132,7 @@
 										class="col-form-label col-form-label-sm">Tier</label> 
 									<input type="text" class="form-control form-control-sm"
 										th:value="${reshma.tier}" id="tier"
-										name="tier" placeholder="Source Hostname">
+										name="tier" placeholder="Source Hostname" onchange="getServerName()">
 								</div>
 								<div class="form-group col-md-4">
 									<label for="sourceHostname"
@@ -199,7 +199,7 @@
 </button>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><img alt=""
+                                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="modal" data-target="#deleteReshma" th:data-whatever="${reshma.id}" data-placement="top" title="Delete"><img alt=""
 			src="/img/favicons/delete-16.png"
 			style="height: 15px; width: 13px;"></button>
                                                 </td>
@@ -215,6 +215,38 @@
 			</div>
 		</div>
 		<!-- /container-fluid -->
+
+
+
+
+
+
+
+
+	<!-- Delete Modal -->
+<div class="modal fade" id="deleteReshma" tabindex="-1" role="dialog" aria-labelledby="deleteTSZ" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you really want to delete this record ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="/deleteReshma" method="POST">
+        <input type="hidden"  id="deleteId" name="deleteId"/>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 	</main>
 
@@ -236,23 +268,24 @@
 
 	<!-- script for disable paste dates for till date -->
 	<script type="text/javascript">
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1; //January is 0!
-		var yyyy = today.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-
-		today = yyyy + '-' + mm + '-' + dd;
-		document.getElementById("tillDate").setAttribute("min", today);
-		
-		$(function () {
-		    $('[data-toggle="tooltip"]').tooltip();
+	$('#deleteReshma').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget); // Button that triggered the modal
+		  var deleteId = button.data('whatever'); // Extract info from data-* attributes
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  var modal = $(this);
+		  modal.find('.modal-footer input').val(deleteId);
 		});
+		
+		
+		
+		
+		
+		function getServerName(){
+		
+		document.getElementById("name").value="HDC ("+document.getElementById("appEnvironment").value+") "+document.getElementById("tier").value
+		
+	}
 	</script>
 
 </body>

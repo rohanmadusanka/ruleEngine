@@ -43,6 +43,42 @@ public class HomeController {
 		return "Reshma";
 	}
 	
+	@PostMapping(value = "/saveReshma")
+	public String addReshma(@ModelAttribute("reshma") Reshma reshma, HttpServletRequest request) {
+		
+		reshmaService.save(reshma);
+		return "redirect:/Reshma";
+	
+	}
+	
+	@PostMapping(value = "/updateReshma")
+	public String updateReshma(@RequestParam("updateid") long id,@RequestParam("updatesource") String source,@RequestParam("updatedestination") String destination,@RequestParam("updateremark") String remark) throws ParseException {
+		 
+		Reshma reshma = new Reshma();
+		
+		reshmaService.update(reshma);
+			
+	 return "redirect:/Reshma";
+	}
+	
+	@PostMapping(value = "/deleteReshma")
+	public String deleteReshma(@RequestParam("deleteId") long id) throws ParseException {
+		 
+		reshmaService.delete(id);
+			
+	 return "redirect:/Reshma";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/TrustedServers", method = RequestMethod.GET)
 	public String trustedServer(Model model) {
 		
@@ -53,6 +89,7 @@ public class HomeController {
 		model.addAttribute("tsz", tsz);
 		return "TrustedServers";
 	}
+	
 	
 	@PostMapping(value = "/saveTrustedServers")
 	public String addFirewallRule(@ModelAttribute("tsz") TrustedServerZone trustedServerZone, HttpServletRequest request) {

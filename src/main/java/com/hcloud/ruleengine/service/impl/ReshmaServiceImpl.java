@@ -24,7 +24,24 @@ public class ReshmaServiceImpl implements ReshmaService{
 
 	@Override
 	public List<Reshma> getAllReshma() {
-		
 		return reshmaRepository.findAll();
+	}
+
+
+	@Override
+	public Reshma save(Reshma reshma) {
+		return reshmaRepository.save(reshma);
+	}
+
+
+	@Override
+	public void delete(long id) {
+		reshmaRepository.deleteById(id);
+	}
+
+
+	@Override
+	public Reshma update(Reshma reshma) {
+		return reshmaRepository.save(reshma);
 	}
 }
